@@ -2,10 +2,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Poiret+One|Nanum+Gothic|Song+Myung&display=swap');
 
 
-body{
+div#container{
 	width:1024px;
-	margin: 0 auto;	
+	margin: 0 auto;
 }
+
 
 /* header */
 div#header-container{
@@ -14,11 +15,12 @@ div#header-container{
 	border-bottom-style: double;
 	border-bottom-color: gray;
 }
-div#header-container h3{
+div#header-container span{
 	font-family: Poiret One;
     color: rgb(76, 76, 76);
-    left: 79px;
+    left: 84px;
     top: 32px;
+    font-weight: bold;
     position: relative;
 }
 div#header-container a{
@@ -66,10 +68,13 @@ div#menubar{
 	width: 250px;
 	height: 100%;
 	color: #494949;
-	background: lightgray;
+	background: #f1f1f1;
 	position: absolute;
 	top:0px;
-	right:-500px;
+	right:-300px;
+	/* visibility: hidden; */
+	float: right;
+
 }
 
 div#menubar #close{
@@ -84,7 +89,8 @@ div#menubar #close{
 form#loginfrm{
 	position: absolute;
 	top:30px;
-	left:30px;
+	left:40px;
+	font-size: 60%;
 }
 
 form#loginfrm input{
@@ -96,25 +102,70 @@ form#loginfrm input{
 }
 
 form img{
-	width: 30px;
-	height: 30px;
+	width: 15px;
+	height: 15px;
+	padding-right: 3px;
 }
 
 form#loginfrm #login_btn{
 	position: absolute;
-	top : 8px;
+	padding: 5px;
+	top : 25px;
 	width : 40px;
-	height: 50px;
+	height: 42px;
 	
 }
 
+form#loginfrm .membermenu{
+	color: gray;
+	background: none;
+	width: 80px;
+}
+
+form#loginfrm .membermenu:hover{
+	cursor: pointer;
+	color: #555555;
+	font-weight: bold;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+form a:hover{
+	color: #2dac89;
+	font-weight: bold;
+}
+
+div#menu{
+	font-size: 65%;
+	position: absolute;
+	width: 200px;
+	top: 150px;
+}
+div#menu li{
+	padding: 5px;
+}
+div#menu li:hover{
+	font-weight: bold;	
+}
+
+
+
+/* content */
+section#content	{
+	float:left; 
+	width:1024px; 
+	min-height:300px; }
 
 /* footer */
-div#footer-container{
-	padding: 10px;
-	width:1024px;
+footer{
 	font-size: 8px;
 	color: gray;
-	text-align: center;
+	clear:both;
+	height:75px; 
+	text-align:center;
+	padding-top:40px;
 }
 
