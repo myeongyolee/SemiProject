@@ -1,19 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Hello World</title>
+    
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" />
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-</head>
-<body>
-<h1>Hello World</h1>
+	<h5>내용웅애웅ㅇㅇ우</h5>
+	<h5>내용웅애웅ㅇㅇ우</h5>
+	<h5>내용웅애웅ㅇㅇ우</h5>
+	<h5>내용웅애웅ㅇㅇ우</h5>
+	<h5>내용웅애웅ㅇㅇ우</h5>
+	<h5>내용웅애웅ㅇㅇ우</h5>
+	
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
-<div id="test">
-<input type="button" value="회원가입"
-onclick="location.href='<%=request.getContextPath()%>/member/memberEnroll'"/>
-					  				   
-</div>
-</body>
-</html>
+

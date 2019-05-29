@@ -1,0 +1,120 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Poiret+One|Nanum+Gothic|Song+Myung&display=swap');
+
+
+body{
+	width:1024px;
+	margin: 0 auto;	
+}
+
+/* header */
+div#header-container{
+	height:60px;
+	position: relative;
+	border-bottom-style: double;
+	border-bottom-color: gray;
+}
+div#header-container h3{
+	font-family: Poiret One;
+    color: rgb(76, 76, 76);
+    left: 79px;
+    top: 32px;
+    position: relative;
+}
+div#header-container a{
+	text-decoration: none;	
+}
+div#header-container img#logo_img{
+	position: absolute;
+    top: 11px;
+    left: 108px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    box-shadow: -1px -1px 1px grey;
+}
+
+div#header-container img#chat_img{
+	position: absolute;
+    top: 22px;
+    right: 80px;
+    width: 27px;
+    height: 27px;
+}
+div#header-container img#menu_img{
+	position: absolute;
+    top: 22px;
+    right: 40px;
+    width: 34px;
+    height: 31px;
+}
+
+div#index{
+	font-family:Nanum Gothic;
+	font-weight: bolder;
+	position: absolute;
+	right:200px;
+	font-size: 10px;
+}
+div#index a{
+	color: gray;	
+}
+
+/* 메뉴바 */
+div#menubar{
+	font-family:Nanum Gothic;
+	width: 250px;
+	height: 100%;
+	color: #494949;
+	background: lightgray;
+	position: absolute;
+	top:0px;
+	right:-500px;
+}
+
+div#menubar #close{
+	font-family:Montserrat;
+	position: absolute;
+	left: 10px;
+	top:5px;
+	font-size: 13px;
+}
+
+/* 로그인폼 */
+form#loginfrm{
+	position: absolute;
+	top:30px;
+	left:30px;
+}
+
+form#loginfrm input{
+	border-radius: 10px;
+	border: none;
+	width: 100px;
+	height:20px;
+	font-size: 8px;
+}
+
+form img{
+	width: 30px;
+	height: 30px;
+}
+
+form#loginfrm #login_btn{
+	position: absolute;
+	top : 8px;
+	width : 40px;
+	height: 50px;
+	
+}
+
+
+/* footer */
+div#footer-container{
+	padding: 10px;
+	width:1024px;
+	font-size: 8px;
+	color: gray;
+	text-align: center;
+}
+
