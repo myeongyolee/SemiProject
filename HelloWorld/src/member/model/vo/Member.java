@@ -1,6 +1,7 @@
 package member.model.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
@@ -9,14 +10,15 @@ public class Member implements Serializable, HttpSessionBindingListener{
 	private String memberId;
 	private String memberName;
 	private String password;
+	private String tel;
+	private String gender;
 	private String question;
 	private String answer;
-	private String gender;
-	private String birth;
-	private String tel;
+	private Date birth;
 	private String interest;
 	private String renamedImgName;
 	private String originalImgName;
+	private Date joinDate;
 	
 
 	public Member() {
@@ -25,7 +27,7 @@ public class Member implements Serializable, HttpSessionBindingListener{
 
 	
 	public Member(String memberId, String memberName, String password, String question, String answer, String gender,
-			String birth, String tel, String interest, String renamedImgName, String originalImgName) {
+			Date birth, String tel, String interest, String renamedImgName, String originalImgName) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
@@ -38,6 +40,18 @@ public class Member implements Serializable, HttpSessionBindingListener{
 		this.interest = interest;
 		this.renamedImgName = renamedImgName;
 		this.originalImgName = originalImgName;
+	}
+
+	
+
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 
 
@@ -106,11 +120,11 @@ public class Member implements Serializable, HttpSessionBindingListener{
 		this.gender = gender;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -130,15 +144,12 @@ public class Member implements Serializable, HttpSessionBindingListener{
 		this.interest = interest;
 	}
 	
-	
-
-
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberName=" + memberName + ", password=" + password + ", question="
-				+ question + ", answer=" + answer + ", gender=" + gender + ", birth=" + birth + ", tel=" + tel
+		return "Member [memberId=" + memberId + ", memberName=" + memberName + ", password=" + password + ", tel=" + tel
+				+ ", gender=" + gender + ", question=" + question + ", answer=" + answer + ", birth=" + birth
 				+ ", interest=" + interest + ", renamedImgName=" + renamedImgName + ", originalImgName="
-				+ originalImgName + "]";
+				+ originalImgName + ", joindate=" + joinDate + "]";
 	}
 
 

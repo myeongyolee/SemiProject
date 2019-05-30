@@ -1,0 +1,217 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Poiret+One|Nanum+Gothic|Song+Myung&display=swap');
+div#container{
+    width:1024px;
+    margin: 0 auto;
+}
+/* header */
+div#header-container{
+    height:90px;
+    position: relative;
+    border-bottom-style: double;
+    border-bottom-color: gray;
+}
+div#header-container span{
+    font-family: Poiret One;
+    color: rgb(76, 76, 76);
+    left: 59px;
+    top: 42px;
+    font-weight: bold;
+    font-size: xx-large;
+    position: relative;
+}
+}
+div#header-container a{
+    text-decoration: none;  
+}
+div#header-container img#logo_img{
+    position: absolute;
+    top: 11px;
+    left: 108px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: -1px -1px 1px grey;
+}
+div#header-container img#chat_img{
+    position: absolute;
+    top: 30px;
+    right: 90px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+div#header-container img#menu_img{
+    position: absolute;
+    top: 34px;
+    right: 35px;
+    width: 45px;
+    height: 40px;
+    cursor: pointer;
+}
+div#index{
+    font-family:Nanum Gothic;
+    font-weight: bolder;
+    position: absolute;
+    right:200px;
+    font-size: 10px;
+}
+div#index a{
+    color: gray;    
+}
+/* 채팅화면 */
+div#chat-container{
+    position: fixed;
+    width: 320px;
+    height: 420px;
+    left: 700px;
+    top: 30px;
+    background: powderblue;
+    display: none;
+    box-shadow: 5px 5px 5px grey;
+}
+div#chat-container #chat-title{
+    position: relative;
+    width: 200px;
+    top: 13px;
+    left: 111px;
+    color: white;
+    font-weight: bold;
+}
+div#chat-container #chat-close{
+    font-family: Montserrat;
+    position: relative;
+    right: -196px;
+    top: 12px;
+    font-size: 18px;
+}
+div#chat-container #msg-container{
+    position: relative;
+    top: 30px;
+    height: 280px;
+    padding: 18px;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar{width: 10px; height: 10px;}
+::-webkit-scrollbar-thumb {background-color:rgba(122,122,122,0.5); border-radius: 5px;}
+::-webkit-scrollbar-thumb:hover {background: #555;}
+div#chat-container #msg-container ul{
+    font-family: Nanum Gothic;
+    padding: 8px 10px;
+    background: #fce062;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 15px;
+}
+div#chat-container div#input{
+    width:320px;
+    height: 50px;
+    text-align: center;
+    position:relative;
+    top: 40px;
+}
+div#input input{
+    border-radius: 20px;
+    border: none;
+    padding:5px;
+    width: 230px;
+}
+div#input button{
+    border: none;
+    width: 50px;
+    height: 25px;
+    border-radius: 10px;
+    background: gray;
+    color: white;
+}
+/* 메뉴바 */
+div#menubar{
+    font-family: Nanum Gothic;
+    width: 290px;
+    height: 100%;
+    color: #494949;
+    background: #f1f1f1;
+    position: absolute;
+    top: 0px;
+    right: -300px;
+    float: right;
+    /* display: none; */
+}
+div#menubar #menubar-close{
+    font-family:Montserrat;
+    position: absolute;
+    left: 10px;
+    top:5px;
+    font-size: 18px;
+}
+/* 로그인폼 */
+form#loginfrm{
+    position: absolute;
+    top: 39px;
+    left: 25px;
+}
+div.login-container input{
+    border-radius: 20px;
+    border: none;
+    width: 125px;
+    height: 30px;
+    font-size: 12px;
+}
+form img{
+    width: 35px;
+    height: 35;
+    padding-right: 7px;
+}
+form#loginfrm #login_btn{
+    position: absolute;
+    padding: 5px;
+    left: 182px;
+    top: 42px;
+    width: 56px;
+    height: 70px;
+    
+}
+form#loginfrm .membermenu{
+    color: gray;
+    background: none;
+    width: 120px;
+}
+form#loginfrm .membermenu:hover{
+    cursor: pointer;
+    color: #555555;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+form a:hover{
+    color: #2dac89;
+    font-weight: bold;
+}
+div#menu{
+    font-size: 100%;
+    position: absolute;
+    width: 200px;
+    top: 220px;
+}
+div#menu li{
+    padding: 5px;
+}
+div#menu li:hover{
+    font-weight: bold;  
+}
+/* content */
+section#content {
+    float:left; 
+    width:1024px; 
+    min-height:300px; }
+/* footer */
+footer{
+    font-size: 15px;
+    color: gray;
+    clear:both;
+    height:75px; 
+    text-align:center;
+    padding-top:40px;
+}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.Base64;
 
 import javax.servlet.ServletException;
@@ -71,8 +72,8 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		//업로드한 프로필 있으면 그걸로, 없으면 기본 이미지 지정
 		if(multiReq.getFilesystemName("profile")==null &&
 				multiReq.getOriginalFileName("profile")==null) {
-			renamedImgName = "basicProfile.jpg";
-			originalImgName = "basicProfile.jpg";
+			renamedImgName = "nonProfile.png";
+			originalImgName = "nonProfile.png";
 			
 		}
 		else{
@@ -106,8 +107,9 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		member.setPassword(encPwd);
 		member.setQuestion(question);
 		member.setAnswer(answer);
-		member.setGender(gender);
-		member.setBirth(birth);
+		
+		Date birthday = java.sql.Date.valueOf(birth);
+		member.setBirth(birthday);
 		member.setTel(tel);
 		member.setInterest(interest);
 		member.setRenamedImgName(renamedImgName);
