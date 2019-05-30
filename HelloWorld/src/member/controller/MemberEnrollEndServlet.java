@@ -1,14 +1,16 @@
 package member.controller;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
@@ -61,12 +63,12 @@ public class MemberEnrollEndServlet extends HttpServlet {
 			interest = String.join(",", interests);			
 		}
 		
+		//업무로직
+		
 		String renamedImgName = "";
 		String originalImgName = "";
 		
-		System.out.println("리네ㅣㅁ::"+multiReq.getFilesystemName("profile"));
-		System.out.println("올진::"+multiReq.getOriginalFileName("profile"));
-		
+		//업로드한 프로필 있으면 그걸로, 없으면 기본 이미지 지정
 		if(multiReq.getFilesystemName("profile")==null &&
 				multiReq.getOriginalFileName("profile")==null) {
 			renamedImgName = "basicProfile.jpg";
@@ -78,10 +80,30 @@ public class MemberEnrollEndServlet extends HttpServlet {
 			originalImgName = multiReq.getOriginalFileName("profile");
 		}
 		
+		//비밀번호 암호화
+		String encPwd = null;
+		//암호화객체 생성(sha-512)
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		//전달받은 문자열 password를 byte[]로 변환
+		byte[] bytes = password.getBytes(Charset.forName("UTF-8"));
+		md.update(bytes);
+		//java.util.Base64 인코더를 이용해서 암호화된 바이트 배열을 인코딩
+		//문자열로 리턴
+		encPwd = Base64.getEncoder().encodeToString(md.digest());
+				//바이트 배열을 문자열로 바꿔 줌
+				//digest() 이용해서 바이트배열 리턴 가능
+		System.out.println("암호화된 비밀번호@END서블릿::"+encPwd);
+		
+		
 		Member member = new Member();
 		member.setMemberId(memberId);
 		member.setMemberName(memberName);
-		member.setPassword(password);
+		member.setPassword(encPwd);
 		member.setQuestion(question);
 		member.setAnswer(answer);
 		member.setGender(gender);
@@ -93,14 +115,25 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		
 		System.out.println(member);
 		
-		//업무로직
 		int result = new MemberService().insertMember(member);
 		
+		//view단
 		String msg = "";
 		String loc = "";
-		String view = "";
+		String view = "/WEB-INF/views/common/msg.jsp";
 		
-		//view단
+		if(result>0) {
+			msg = "회원가입 성공!";
+			loc = "/";
+		}
+		else {
+			msg = "회원가입 실패!";
+			loc = "/member/memberEnroll";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+
+		request.getRequestDispatcher(view).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

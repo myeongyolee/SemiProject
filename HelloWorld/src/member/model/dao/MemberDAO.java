@@ -4,12 +4,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
 import static common.JDBCTemplate.*;
 
+import member.model.service.MemberService;
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -30,16 +33,132 @@ public class MemberDAO {
 		}
 	}	
 
-	public int insertMember(Connection conn, Member member) {
+	public int insertMember(Connection conn, Member m) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertMember");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberName());
+			pstmt.setString(3, m.getPassword());
+			
+			String birth = m.getBirth();
+			Date birthday = java.sql.Date.valueOf(birth);
+			pstmt.setDate(4, birthday);
+			pstmt.setString(5, m.getTel());
+			pstmt.setString(6, m.getGender());
+			pstmt.setString(7, m.getInterest());
+			pstmt.setString(8, m.getQuestion());
+			pstmt.setString(9, m.getAnswer());
+			pstmt.setString(10, m.getOriginalImgName());
+			pstmt.setString(11, m.getRenamedImgName());
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
+	}
+
+	public boolean checkIdDuplicate(Connection conn, String memberId) {
+		boolean isUsable = false;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkIdDuplicate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				int cnt = rset.getInt("cnt");
+				
+				if(cnt == 0) {
+					isUsable = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return isUsable;
+	}
+
+	public int loginCheck(Connection conn, Member m) {
+		int result = -1;
+		String sql = prop.getProperty("selectOne");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemberId());
+			rset = pstmt.executeQuery();
+			
+			//rset의 결과를 변수에 담기
+			String memberId = "";
+			String password = "";
+			//리턴된 행이 있을 경우 실행됨
+			if(rset.next()) {
+				memberId = rset.getString("memberid"); //컬럼명은 대소문자 구분 X
+				password = rset.getString("password");
+			}
+			
+			//비교 및 결과 도출
+			if(memberId.equals(m.getMemberId()) && 
+					password.equals(m.getPassword())) {
+				//로그인 성공
+				result = 1;
+			}
+			else if(memberId.equals(m.getMemberId())) {
+				//비밀번호 틀림
+				result = 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Member selectOne(Connection conn, String memberId) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
+			//쿼리 실행
+			rset = pstmt.executeQuery();
+			
+			//rset의 정보를 member 객체에 옮겨담기
+			if(rset.next()) {
+				m = new Member();
+				m.setMemberId(rset.getString("member_id"));
+				m.setMemberName(rset.getString("member_name"));
+				m.setPassword(rset.getString("password"));
+				m.setTel(rset.getString("phone"));
+				m.setGender(rset.getString("gender"));
+				
+			}
+			System.out.println("member@dao="+m);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
 	}
 
 }
