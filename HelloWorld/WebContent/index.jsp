@@ -33,12 +33,7 @@
 <title>Hello World</title>
 >>>>>>> refs/remotes/origin/jimin
 
-	<h5>내용웅애웅ㅇㅇ우</h5>
-	<h5>내용웅애웅ㅇㅇ우</h5>
-	<h5>내용웅애웅ㅇㅇ우</h5>
-	<h5>내용웅애웅ㅇㅇ우</h5>
-	<h5>내용웅애웅ㅇㅇ우</h5>
-	<h5>내용웅애웅ㅇㅇ우</h5>
+	
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
