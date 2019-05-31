@@ -42,10 +42,7 @@ public class MemberDAO {
 			pstmt.setString(1, m.getMemberId());
 			pstmt.setString(2, m.getMemberName());
 			pstmt.setString(3, m.getPassword());
-			
-			String birth = m.getBirth();
-			Date birthday = java.sql.Date.valueOf(birth);
-			pstmt.setDate(4, birthday);
+			pstmt.setDate(4, m.getBirth());
 			pstmt.setString(5, m.getTel());
 			pstmt.setString(6, m.getGender());
 			pstmt.setString(7, m.getInterest());
@@ -103,7 +100,7 @@ public class MemberDAO {
 			String password = "";
 			//리턴된 행이 있을 경우 실행됨
 			if(rset.next()) {
-				memberId = rset.getString("memberid"); //컬럼명은 대소문자 구분 X
+				memberId = rset.getString("member_id"); //컬럼명은 대소문자 구분 X
 				password = rset.getString("password");
 			}
 			
@@ -147,6 +144,13 @@ public class MemberDAO {
 				m.setPassword(rset.getString("password"));
 				m.setTel(rset.getString("phone"));
 				m.setGender(rset.getString("gender"));
+				m.setInterest(rset.getString("member_like"));
+				m.setQuestion(rset.getString("password_check"));
+				m.setAnswer(rset.getString("password_answer"));
+				m.setOriginalImgName(rset.getString("original_imgname"));
+				m.setRenamedImgName(rset.getString("renamed_imgname"));
+				m.setJoinDate(rset.getDate("joindate"));
+				m.setBirth(rset.getDate("birthday"));
 				
 			}
 			System.out.println("member@dao="+m);

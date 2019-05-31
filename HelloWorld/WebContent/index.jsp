@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" />
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -345,4 +346,10 @@ onclick="location.href='<%=request.getContextPath()%>/member/memberEnroll'"/>
 </div>
 </body>
 </html>
+>>>>>>> refs/remotes/origin/jimin
+=======
+    
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+    
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 >>>>>>> refs/remotes/origin/jimin
