@@ -1,18 +1,18 @@
 package member.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-import static common.JDBCTemplate.*;
-
-import member.model.service.MemberService;
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -163,6 +163,42 @@ public class MemberDAO {
 		}
 		
 		return m;
+	}
+
+	public List<Member> selectOneByName(Connection conn, String memberName) {
+		List<Member> memberList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOneByName");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberName);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemberId(rset.getString("member_id"));
+				m.setMemberName(memberName);
+				m.setPassword(rset.getString("password"));
+				m.setTel(rset.getString("phone"));
+				m.setGender(rset.getString("gender"));
+				m.setInterest(rset.getString("member_like"));
+				m.setQuestion(rset.getString("password_check"));
+				m.setAnswer(rset.getString("password_answer"));
+				m.setOriginalImgName(rset.getString("original_imgname"));
+				m.setRenamedImgName(rset.getString("renamed_imgname"));
+				m.setJoinDate(rset.getDate("joindate"));
+				m.setBirth(rset.getDate("birthday"));
+				
+				memberList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memberList;
 	}
 
 }

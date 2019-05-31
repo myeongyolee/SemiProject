@@ -3,6 +3,7 @@ package member.model.service;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
@@ -37,6 +38,13 @@ public class MemberService {
 		Member m = new MemberDAO().selectOne(conn, memberId);
 		close(conn);
 		return m;
+	}
+
+	public List<Member> selectOneByName(String memberName) {
+		Connection conn = getConnection();
+		List<Member> memberList = new MemberDAO().selectOneByName(conn, memberName);
+		close(conn);
+		return memberList;
 	}
 
 }
