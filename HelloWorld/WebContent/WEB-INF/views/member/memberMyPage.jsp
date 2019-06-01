@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-<title>회원가입</title>
+<title>마이 페이지</title>
 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/memberEnroll.css" />
 
@@ -11,7 +11,7 @@
 
 
 <section id="enroll-container">
-<h1>Join Us,</h1>
+<h1><%=memberLoggedIn.getMemberId()%></h1>
 
 <form action="<%=request.getContextPath()%>/member/memberEnrollEnd"
 	  name="memberEnrollFrm"
@@ -19,11 +19,12 @@
 	  enctype="multipart/form-data"
 	  onsubmit="return submitInvalid();">
 <table id="memberEnrollTable">
+	
 	<tr>
-		<td rowspan="10">
+		<td rowspan="7">
 			<div id="profile-div">
 				<img id="profile-viewer"
-					 src="<%=request.getContextPath()%>/images/profilebasic.png" 
+					 src="<%=request.getContextPath()%>/upload/member/profile/<%=memberLoggedIn.getRenamedImgName()%>" 
 					 width="200px" height="200px"
 					 />
 			</div>
@@ -34,41 +35,16 @@
 				   onchange="loadProfile(this);"/>
 			
 		</td>
-		<th>아이디</th>
-		<td>
-			<input type="text" 
-				   name="memberId_"
-				   id="memberId_" 
-				   required/>
-			<span id="checkIdDuplicate"></span>
-			<input type="hidden" id="isValid" value="0"/>
-		</td>
-	</tr>
-	<tr>
 		<th>이름</th>
 		<td>
 			<input type="text"
 				   name="memberName"
 				   id="memberName"
-				   required/>
+				   value="<%=memberLoggedIn.getMemberName() %>"
+				   readonly/>
 		</td>
 	</tr>
-	<tr>
-		<th>비밀번호</th>
-		<td><input type="password" 
-				   name="password_"
-				   id="password_" 
-				   required/>
-		</td>
-	</tr>
-	<tr>
-		<th>비밀번호 확인</th>
-		<td><input type="password" 
-				   id="passwordCheck"
-				   required/>
-			<span id="passwordCheck-span"></span>
-		</td>
-	</tr>
+	
 	<tr>
 		<th>질문</th>
 		<td>

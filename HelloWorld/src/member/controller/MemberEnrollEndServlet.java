@@ -50,11 +50,11 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		//인코딩
 		request.setCharacterEncoding("UTF-8");
 		//파라미터 핸들링
-		String memberId = multiReq.getParameter("memberId");
+		String memberId = multiReq.getParameter("memberId_");
 		String memberName = multiReq.getParameter("memberName");
-		String password = multiReq.getParameter("password");
+		String password = multiReq.getParameter("password_");
 		String question = multiReq.getParameter("question");
-		String answer = multiReq.getParameter("answer");
+		String answer = multiReq.getParameter("answer").replaceAll(" ", "").replaceAll("\\p{Z}", "");
 		String gender = multiReq.getParameter("gender");
 		String birth = multiReq.getParameter("birth");
 		String tel = multiReq.getParameter("tel");
@@ -107,6 +107,7 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		member.setPassword(encPwd);
 		member.setQuestion(question);
 		member.setAnswer(answer);
+		member.setGender(gender);
 		
 		Date birthday = java.sql.Date.valueOf(birth);
 		member.setBirth(birthday);
