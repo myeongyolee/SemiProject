@@ -1,31 +1,41 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Poiret+One|Nanum+Gothic|Song+Myung&display=swap');
+body{
+	margin-top: 0px;
+}
+
 div#container{
     width:1024px;
     margin: 0 auto;
     position: relative;
+    font-family: Nanum Gothic;
 }
+
 /* header */
 div#header-container{
     height:90px;
     position: relative;
-    border-bottom-style: double;
+	border-bottom-style: double;
     border-bottom-color: gray;
 }
-div#header-container span{
+div#header2-container{
+    height:90px;
+    position: relative;
+}
+div.header span{
     font-family: Poiret One;
     color: rgb(76, 76, 76);
     left: 59px;
-    top: 42px;
+    top: 43px;
     font-weight: bold;
     font-size: xx-large;
     position: relative;
 }
-}
-div#header-container a{
+
+div.header a{
     text-decoration: none;  
 }
-div#header-container img#logo_img{
+div.header img#logo_img{
     position: absolute;
     top: 11px;
     left: 108px;
@@ -34,7 +44,7 @@ div#header-container img#logo_img{
     border-radius: 50px;
     box-shadow: -1px -1px 1px grey;
 }
-div#header-container img#chat_img{
+div.header img#chat_img{
     position: absolute;
     top: 30px;
     right: 90px;
@@ -42,7 +52,7 @@ div#header-container img#chat_img{
     height: 40px;
     cursor: pointer;
 }
-div#header-container img#menu_img{
+div.header img#menu_img{
     position: absolute;
     top: 34px;
     right: 35px;
@@ -86,6 +96,7 @@ div#chat-container #chat-close{
     right: -196px;
     top: 12px;
     font-size: 18px;
+    cursor: pointer;
 }
 div#chat-container #msg-container{
     position: relative;
@@ -97,6 +108,7 @@ div#chat-container #msg-container{
 ::-webkit-scrollbar{width: 10px; height: 10px;}
 ::-webkit-scrollbar-thumb {background-color:rgba(122,122,122,0.5); border-radius: 5px;}
 ::-webkit-scrollbar-thumb:hover {background: #555;}
+
 div#chat-container #msg-container ul{
     font-family: Nanum Gothic;
     padding: 8px 10px;
@@ -146,8 +158,9 @@ div#menubar #menubar-close{
     left: 10px;
     top:5px;
     font-size: 18px;
+    cursor: pointer;
 }
-/* 로그인폼 */
+/* 로그인폼(로그인전) */
 form#loginfrm{
     position: absolute;
     top: 39px;
@@ -157,16 +170,18 @@ div.login-container input{
     border-radius: 20px;
     border: none;
     width: 125px;
-    height: 30px;
+    height: 27px;
     font-size: 12px;
     padding-left: 10px;
+/*     cursor: pointer; */
 }
 input#saveId{
-	width:20px;
-	height: 20px; 
+	width: 15px;
+    height: 15px;
+    position: relative;
 	
 }
-form img{
+form#loginfrm img{
     width: 35px;
     height: 35;
     padding-right: 7px;
@@ -174,16 +189,17 @@ form img{
 form#loginfrm #login_btn{
     position: absolute;
     padding: 5px;
-    left: 182px;
+    left: 190px;
     top: 42px;
     width: 56px;
-    height: 70px;
+    height: 75px;
+    cursor:pointer;
     
 }
 form#loginfrm .membermenu{
     color: gray;
     background: none;
-    width: 120px;
+    width: 121px;
 }
 form#loginfrm .membermenu:hover{
     cursor: pointer;
@@ -202,7 +218,7 @@ div#menu{
     font-size: 100%;
     position: absolute;
     width: 200px;
-    top: 220px;
+    top: 250px;
 }
 div#menu li{
     padding: 5px;
@@ -210,13 +226,39 @@ div#menu li{
 div#menu li:hover{
     font-weight: bold;  
 }
+
+label#saveId{
+	position: relative;
+    font-size: small;
+}
+
+/* 로그인 후  */
+table#logged-in{
+	position: relative;
+	top: 50px;
+	left: 4px;
+	border-spacing: 10px;
+}
+
+table#logged-in input{
+	cursor: pointer;
+}
+img#profile-viewer_{
+	border-radius: 100px;
+	width: 120px;
+	height: 120px;
+}
+
+
+
 /* content */
 section#content {
     float:left; 
     width:1024px; 
-    min-height:300px; 
+    min-height:500px; 
     z-index: 0;
     }
+    
 /* footer */
 footer{
     font-size: 15px;

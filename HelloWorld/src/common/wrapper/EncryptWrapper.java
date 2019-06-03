@@ -25,7 +25,9 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String key) {
 		String value = "";
-		if(key != null && (key.equals("password")) || (key.equals("updatePassword"))) {
+		if(key != null && (key.equals("password")) || 
+				(key.equals("passwordOld")) ||
+				(key.equals("passwordNew"))) {
 			System.out.println("암호화 전: "+super.getParameter(key)); //key="password"
 			
 			value = getSha512(super.getParameter(key)); //암호화 방식 중 Sha512 방식 사용할 것

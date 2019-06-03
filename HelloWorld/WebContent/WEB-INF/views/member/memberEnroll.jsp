@@ -21,6 +21,7 @@
 <table id="memberEnrollTable">
 	<tr>
 		<td rowspan="10">
+			<span id="deleteProfile">X</span>
 			<div id="profile-div">
 				<img id="profile-viewer"
 					 src="<%=request.getContextPath()%>/images/profilebasic.png" 
@@ -171,6 +172,11 @@ $(function(){
 	$("#profile-viewer").click(function(){
 		$("#profile").click();
 	});
+	
+	$("#deleteProfile").click(function(){
+		$("#profile-viewer").attr("src", "<%=request.getContextPath()%>/upload/member/profile/nonProfile.png");
+		$("#profile").val("");
+	});
 });
 
 function loadProfile(f){
@@ -257,11 +263,11 @@ $("#memberId_").keyup(function(){
 	$("#isValid").val("0");
     var regExp = /^[a-z\d]{4,12}$/;
     if(!regExp.test(document.querySelector("#memberId_").value)){
-        $("#memberId_").css("border-bottom", "2px dashed red");
+        $("#memberId_").css("border-bottom", "1px dashed red");
         $("#checkIdDuplicate").html("");
     }
     else{
-        $("#memberId_").css("border-bottom", "2px solid");
+        $("#memberId_").css("border-bottom", "1px solid gray");
         $("#checkIdDuplicate").html("<input onclick='checkIdDuplicate();' id='checkIdDuplicate-button' type='button' value='중복 검사' />");
     }
 });
@@ -270,10 +276,10 @@ $("#memberId_").keyup(function(){
 $("#memberName").keyup(function(){
 	var regExp = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/;
 	if(!regExp.test(document.querySelector("#memberName").value)){
-		$("#memberName").css("border-bottom", "2px dashed red");
+		$("#memberName").css("border-bottom", "1px dashed red");
 	}
 	else{		
-		$("#memberName").css("border-bottom", "2px solid black");
+		$("#memberName").css("border-bottom", "1px solid gray");
 	}
 });
 
@@ -282,10 +288,10 @@ $("#memberName").keyup(function(){
 $("#password_").keyup(function(){
 	var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
 	if(!regExp.test(document.querySelector("#password_").value)){
-	    $("#password_").css("border-bottom", "2px dashed red");
+	    $("#password_").css("border-bottom", "1px dashed red");
 	}
 	else{
-	    $("#password_").css("border-bottom", "2px solid black");
+	    $("#password_").css("border-bottom", "1px solid gray");
 	}
 });
 
@@ -319,10 +325,10 @@ $("#password_").keyup(function(){
 $("#tel").keyup(function(){
     var regExp = /^01[0-9]{9}$/;
     if(!regExp.test(document.querySelector("#tel").value)){
-        $("#tel").css("border-bottom", "2px dashed red");
+        $("#tel").css("border-bottom", "1px dashed red");
     }
     else{
-        $("#tel").css("border-bottom", "2px solid");
+        $("#tel").css("border-bottom", "1px solid gray");
     }
 });
 

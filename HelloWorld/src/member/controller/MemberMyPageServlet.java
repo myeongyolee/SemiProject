@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
@@ -20,7 +21,14 @@ public class MemberMyPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("utf-8");
+	
+	HttpSession session = request.getSession();
+	Member memberLoggedIn = (Member)session.getAttribute("memberLoggedIn");
+	
 	String memberId = request.getParameter("memberId");
+	if(memberId==null) {
+		memberId = memberLoggedIn.getMemberId();		
+	}
 	System.out.println("mebmerId@mypageSERVLET=="+memberId);
 	
 	//업무로직

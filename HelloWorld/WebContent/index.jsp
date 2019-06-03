@@ -1,115 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-    
-    
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" />
+<%@ include file="/WEB-INF/views/common/header2.jsp" %>
+<title>HelloWorld</title>
 
-<style>
-/*인덱스 페이지  검색 */
-/*국가 입력 자동완성  */
-ul#autocomplete{
-	min-width:171px;
-	border: 1px solid gray;
-	 display: inline-block;
-	padding: 0;
-	margin: 0;
-	display:none;
-}
-ul#autocomplete li{
-	padding: 0 10px;
-	list-style: none;
-	cursor: pointer;
-}
-ul#autocomplete li.sel{
-	background: pink;
-	color:white;
-}
-/*사용자 입력값 하이라이트처리*/
-span.srchval{color:red;}
-div#destination {
-	border: 1px solid;
-}
-/*나라 고르기  */
-span.nation:hover {
-	color: pink;
-	cursor: pointer;
-}
-/*일정고르기  */
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/index.css" />
 
-span.days:hover{
-	color: blue;
-	cursor: pointer;
-	} 
-h3#days, span.days{
-	display:none;}
-div#destination{
-	display:none;
-}
-</style>
- <h2> HELLO WORLD</h2>
- <nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-    <input name="srchNation" id="srchNation" type="search" placeholder="나라를 입력해주세요."> &nbsp;
-    <button id = "btn-search">검색</button>
-   	
-   	<ul id="autocomplete">
-   		<li class="sel"></li>
-   		<li></li>
-   		<li></li>
-   		<li></li>
-   	</ul>
-  </form>
-  <br />
-  <div id="destination">
-  	<h3 id="nation">어디로 가실건가요? </h3>
-  		<span class="nation" nid="일본" value="일본" >일본</span>&nbsp;&nbsp;&nbsp;
-  		<span class="nation" nid="중국" >중국</span>&nbsp;&nbsp;&nbsp;
-  		<span class="nation" nid="동남아" >동남아</span>&nbsp;&nbsp;&nbsp;
-  		<span class="nation" nid="유럽" >유럽</span>&nbsp;&nbsp;&nbsp;
-  		<span class="nation" nid="미국" >미국</span>&nbsp;&nbsp;&nbsp;
-  		<span class="nation" nid="호주/뉴질랜드">호주/뉴질랜드</span>&nbsp;&nbsp;&nbsp;
-  		<br /><br />
-  	<h3 id="days"> 일정 </h3>
-  		<br />
-  		<span class="days" did="1">1~3일</span>&nbsp;&nbsp;&nbsp;
-  		<span class="days" did="2">3~4일</span>&nbsp;&nbsp;&nbsp;
-  		<span class="days" did="3">5~9일</span>&nbsp;&nbsp;&nbsp;
-  		<span class="days" did="4">10~15일</span>&nbsp;&nbsp;&nbsp;
-  		<span class="days" did="5">2주 이상</span>&nbsp;&nbsp;&nbsp;
-  	<br />
-  </div>
-</nav>
-<button type="button" class="review"><a href="<%=request.getContextPath()%>/reviewFrm"> 리뷰 작성 </a></button>
+<script src="<%=request.getContextPath()%>/js/jquery-3.4.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- 메인로고 -->
+<div id="main-container">
+	<div id="main">
+		 <a href="<%=request.getContextPath()%>">
+			<img id="logo_img" src="<%=request.getContextPath()%>/images/logo.png"/>
+			<span>HelloWorld</span>
+		</a>
+	</div>
+	
+	<!-- 검색창 -->
+	<div id="search">
+	 	<nav class="navbar navbar-light bg-light">
+		  <form class="form-inline">
+		    <input name="srchNation" id="srchNation" type="search" placeholder="어디로 떠나실 건가요?"> &nbsp;
+		    
+		   	<div id="autocomplete-container">
+			   	<ul id="autocomplete">
+			   		<li class="sel"></li>
+			   		<li></li>
+			   		<li></li>
+			   		<li></li>
+			   	</ul>
+		   	</div>
+		  </form>
+		  
+		  <br />
+		  
+		  <div id="destination">
+		  	<h3 id="nation">어디로 가실 건가요? </h3><br />
+		  		<span class="nation" nid="일본" value="일본" >일본</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="nation" nid="중국" >중국</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="nation" nid="동남아" >동남아</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="nation" nid="유럽" >유럽</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="nation" nid="미국" >미국</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="nation" nid="호주/뉴질랜드">호주/뉴질랜드</span>&nbsp;&nbsp;&nbsp;
+		  		<br /><br /><br />
+		  	<h3 id="days"> 일정 </h3>
+		  		<br />
+		  		<span class="days" did="1">1~3일</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="days" did="2">3~4일</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="days" did="3">5~9일</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="days" did="4">10~15일</span>&nbsp;&nbsp;&nbsp;
+		  		<span class="days" did="5">2주 이상</span>&nbsp;&nbsp;&nbsp;
+		  	<br /><br />
+		  </div>
+		</nav>
+	<%-- <button type="button" class="review"><a href="<%=request.getContextPath()%>/reviewFrm"> 리뷰 작성 </a></button> --%>
+	</div>
+</div>
+
 <script>
   //검색창을 클릭하면 나라 고르는 거 나오기
 $(function(){ 
 	$("input#srchNation").focus(function(){
-	$("div#destination").css("transition","3s").show();
+ 		$("div#destination").css("display","block");
+	});
 	
-		$("span.nation").click(function(){
-			var srchNation = $("#srchNation");
-			var nid = $(this).attr("nid");
-			var html = $(this).text();
-			$(this).css("color", "pink");	
-			 srchNation.val(html);
-			if(nid == undefined) return;
-			
-			//나라를 클릭한 후에 일정 보여지기
-			$("h3#days,span.days").css("transition","3s").show();
-			
-			//일정을 정하면 해당 국가 페이지로 이동
-				$("span.days").click(function(){
-				var did = $(this).attr("did");
-				$(this).css("color", "blue");
-				html += ", " + $(this).text();
-				 srchNation.val(html);				
-				location.href='<%=request.getContextPath()%>/nationToCity?nid=' +nid;			
-			});
+	$("span.nation").click(function(){
+		$("span.nation").css('color', 'black').css('font-weight', 'normal');
+	 	$(this).css('color','#da677b').css('font-weight','bold');
+		
+	 	var srchNation = $("#srchNation");
+		var nid = $(this).attr("nid");
+		var html = $(this).text();
+
+		srchNation.val(html);
+		if(nid == undefined) return;
+		
+		//나라를 클릭한 후에 일정 보여지기
+		$("h3#days,span.days").css("transition","3s").show();
+		
+		//일정을 정하면 해당 국가 페이지로 이동
+		$("span.days").click(function(){
+		var did = $(this).attr("did");
+		$(this).css("color", "blue");
+		html += ", " + $(this).text();
+		srchNation.val(html);				
+		location.href='<%=request.getContextPath()%>/nationToCity?nid='+nid;			
 		});
 	});
 });
+  
 $(function(){	
 	$("input#srchNation").keyup(function(key){
 		var srchNation = $("#srchNation").val();

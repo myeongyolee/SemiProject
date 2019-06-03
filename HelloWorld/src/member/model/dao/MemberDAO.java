@@ -201,4 +201,47 @@ public class MemberDAO {
 		return memberList;
 	}
 
+	public int updateMember(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getQuestion());
+			pstmt.setString(2, m.getAnswer());
+			pstmt.setString(3, m.getTel());
+			pstmt.setString(4, m.getInterest());
+			pstmt.setString(5, m.getRenamedImgName());
+			pstmt.setString(6, m.getOriginalImgName());
+			pstmt.setString(7, m.getMemberId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int updatePassword(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePassword");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getPassword());
+			pstmt.setString(2, m.getMemberId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

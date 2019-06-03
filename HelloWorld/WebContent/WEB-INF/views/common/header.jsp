@@ -3,6 +3,7 @@
 <%@ page import="member.model.vo.*" %>
 <%
 	Member memberLoggedIn = (Member)session.getAttribute("memberLoggedIn");
+	String visit = (String)request.getAttribute("visit");	
 
 	//쿠키 관련 처리
 	Cookie[] cookies = request.getCookies();
@@ -33,6 +34,17 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function(){
+	<%
+	if(visit!=null && "first".equals(visit)){
+	%>
+		$("#menubar").css("right","0px");
+		$("#menubar").css("display","inline");
+		
+	<%
+		visit = "none";
+	}
+	%>	
+	
 	/* 메뉴바 클릭 이벤트 */
 	$("#menu_img").click(function(){
 		$("#menubar").animate({'right':'0px'},300,'linear');
@@ -74,13 +86,14 @@ function findMember(){
 		
 	var popup = open(url, title, spec); 
 }
+
 </script>
 </head>
 <body>
 <div id="container">
 	<!-- 헤더 -->
 	<header>
-		<div id="header-container">
+		<div id="header-container" class="header">
 			<a href="<%=request.getContextPath()%>">
 			<img id="logo_img" src="<%=request.getContextPath()%>/images/logo.png"/>
 			<span>HelloWorld</span>
@@ -136,6 +149,7 @@ function findMember(){
 			<form action="<%=request.getContextPath() %>/member/login" 
 				  id="loginfrm"
 				  method="post"
+				  onsubmit="loginSubmit();"
 				  >
 				<span class="text">로그인이 필요합니다.</span>
 				<br /><br />
@@ -151,10 +165,9 @@ function findMember(){
 								   placeholder="   ID"
 								   value="<%=saveIdFlag?memberIdSaved:"" %>"/>
 						</td>
-						<td>
+						<td rowspan="2">
 							<input id="login_btn" 
-								   type="button" 
-								   onclick="loginSubmit();"
+								   type="submit" 
 								   value="로그인"/>
 						</td>
 						
@@ -168,12 +181,14 @@ function findMember(){
 								   id="password"
 								   placeholder="   PASSWORD" />
 						</td>
-						<td>
+					</tr>
+					<tr>
+						<td colspan="3">
 							<input type="checkbox" 
 								   name="saveId" 
 								   id="saveId"
 								   <%=saveIdFlag?"checked":""%>/>
-							<label for="saveId">아이디 저장</label>
+							<label id="saveId">아이디 저장</label>
 						</td>
 					</tr>
 					
@@ -193,23 +208,25 @@ function findMember(){
 		%>
 			<table id='logged-in'>
 				<tr>
-					<td rowspan="2">
+					<td>
 						<div id="profile-div">
-						<img id="profile-viewer"
+						<img id="profile-viewer_"
 					 		 src="<%=request.getContextPath()%>/upload/member/profile/<%=memberLoggedIn.getRenamedImgName()%>" 
-					 		 width="100px" height="100px"/>
+					 		 width="120px" height="120px"/>
 						</div>
 					</td>
-					<td><%=memberLoggedIn.getMemberName()%>님! 안녕하세용</td>
+					<td><%=memberLoggedIn.getMemberName()%>님!<br> 안녕하세용</td>
 				</tr>
 				<tr>
 					<td>
 						<input type='button' 
 							   value='My Page'
 							   onclick="location.href='<%=request.getContextPath()%>/member/memberMyPage?memberId=<%=memberLoggedIn.getMemberId()%>'"/>
+					</td>
+					<td>
 						<input type='button'
 							   value='LogOut'
-							   onclick="logoutFunction();"/>
+							   onclick="location.href='<%=request.getContextPath()%>/member/Logout'"/>
 					</td>
 				</tr>
 			</table>
@@ -223,7 +240,6 @@ function findMember(){
 		<!-- 로그인 메뉴/폼 끝 -->	
 		
 		<script>
-		<%--로그인을 ajax로 처리할 겁니당--%>
 		function loginSubmit(){
 			if($("#memberId").val().trim().length == 0){
 				alert("아이디를 입력하세요.");
@@ -236,89 +252,7 @@ function findMember(){
 				$("#password").focus();
 				return;
 			}
-			
-			var param = {
-					memberId : $("#memberId").val(),
-					password : $("#password").val(),
-					saveId : $("#saveId").val()
-			}
-			console.log("아이디="+memberId);
-			console.log("비번="+password);
-			
-			
-			$.ajax({
-				url: "<%=request.getContextPath() %>/member/login",
-				data: param,
-				dataType: "json",
-				success: function(data){
-					var member = data;
-					var msg = member.msg;
-					var html = "";
-					var memberId = member.memberId;
-					//console.dir(data);
-					if(msg=='로그인성공'){
-						var memberName = member.memberName;
-						var memberProfile = member.renamedImgName;
-						
-						html += "<table id='logged-in'><tr>";
-						html+="<td rowspan='2'><div id='profile-div'>";
-						html+="<img id='profile-viewer'";
-						html+="src='<%=request.getContextPath()%>/upload/member/profile/"+memberProfile+"'";
-						html+=" width='100px' height='100px'/></div></td>";
-					 		 
-						html+="<td>"+memberName+"님! 안녕하세용</td></tr>";
-						html+="<tr><td><input type='button' value='My Page'/>";
-						html+=" <input type='button' value='LogOut'";
-						html+="onclick='logoutFunction();'/>";
-						
-						html+="</td></tr></table>";
-						$(".login-container").html(html);
-
-	
-						var menu = "<ul><li><a href='<%=request.getContextPath()%>'>일정보기</a></li>";
-						menu+="<li><a href='<%=request.getContextPath()%>/test'>내글보기</a></li>";
-						menu+="<li><a href='<%=request.getContextPath()%>'>찜리스트</a></li>";
-						menu+="<li><a href='<%=request.getContextPath()%>'>리뷰쓰기</a></li>";
-						menu+="<li><a href='<%=request.getContextPath()%>'>공지사항</a></li>";
-						menu+="<li><a href='<%=request.getContextPath()%>'>문의사항</a></li></ul>";
-						
-						$("#menu").html(menu);
-					
-						
-<%-- 						var id = {
-								memberId : memberId
-						}
-						$.ajax({
-							url: "<%=request.getContextPath() %>/member/getMemberLoggedIn",
-							data: id,
-							success: function(data){
-								console.log(data);
-							},
-							error: function(a, b, c){
-								console.log(a);
-								console.log(b);
-								console.log(c);
-							}
-						}); --%>
-					}
-					
-					else{
-						alert(msg);
-					}
-				},
-				error: function(a, b, c){
-					console.log(a);
-					console.log(b);
-					console.log(c);
-				}
-				
-			});
 		} 
-		
-		function logoutFunction(){
-			location.href="<%=request.getContextPath()%>/member/Logout";
-		}
-		
 		</script>
 		
 		
@@ -331,10 +265,10 @@ function findMember(){
 				<li><a href="<%=request.getContextPath()%>">일정보기</a></li>
 				<li><a href="<%=request.getContextPath()%>">내글보기</a></li>
 				<li><a href="<%=request.getContextPath()%>">찜리스트</a></li>
-				<li><a href="<%=request.getContextPath()%>">리뷰쓰기</a></li>
+				<li><a href="<%=request.getContextPath()%>/review/reviewForm">리뷰쓰기</a></li>
 				<li><a href="<%=request.getContextPath()%>">문의사항</a></li>
 			<%} %>
-				<li><a href="<%=request.getContextPath()%>">공지사항</a></li>
+				<li><a href="<%=request.getContextPath()%>/notice/noticeList">공지사항</a></li>
 			</ul>
 		</div>
 		

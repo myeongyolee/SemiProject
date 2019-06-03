@@ -44,12 +44,31 @@ public class MemberLoginServlet extends HttpServlet {
 		//로그인 성공 1
 		int result = new MemberService().loginCheck(m);
 		
-		String msg = "";
-		JSONObject jsonMember = new JSONObject();
+		//header 정보 열람
+		Map<String, String> headerMap = new HashMap<>();
+		Enumeration<String> headerNames = request.getHeaderNames();
+		//사용자가 요청한 헤더에 뭐가 왔는지 다 볼 것
+		while(headerNames.hasMoreElements()) {
+			String name = headerNames.nextElement();
+			String value = request.getHeader(name); //key값으로 가져오는 메소드
+			headerMap.put(name, value); //헤더맵에 다 집어넣기
+			//System.out.println("헤더맵:::::"+name+"="+value);
+		}
 		
+		//System.out.println("headerMap@loginServlet="+headerMap);
+		
+		String referer = request.getHeader("Referer"); //키값은 대소문자 구분하니 정확하게 입력
+		String origin = request.getHeader("Origin");
+		String url = request.getRequestURL().toString(); //리턴값이 스트링버퍼이므로 string으로 변환
+		String uri = request.getRequestURI();
+		
+		String view = "";
+		String msg = "";
+		String loc = referer.replace(origin+request.getContextPath(), "");
+		String visit = "first";
 		//로그인 성공
 		if(result == 1) {
-			//view = "/index.jsp";
+			view = "/index.jsp";
 			//로그인에 성공한 회원 정보 가져오기
 			Member memberLoggedIn = new MemberService().selectOne(memberId);
 		
@@ -76,25 +95,15 @@ public class MemberLoginServlet extends HttpServlet {
 				response.addCookie(c);
 			}
 			
-			msg = "로그인성공";
-			jsonMember.put("memberId", memberLoggedIn.getMemberId());
-			jsonMember.put("memberName", memberLoggedIn.getMemberName());
-			jsonMember.put("password", memberLoggedIn.getPassword());
-			jsonMember.put("tel", memberLoggedIn.getTel());
-			jsonMember.put("gender", memberLoggedIn.getGender());
-			jsonMember.put("question", memberLoggedIn.getQuestion());
-			jsonMember.put("answer", memberLoggedIn.getAnswer());
-			jsonMember.put("birth", memberLoggedIn.getBirth().toString());
-			jsonMember.put("interest", memberLoggedIn.getInterest());
-			jsonMember.put("renamedImgName", memberLoggedIn.getRenamedImgName());
-			jsonMember.put("originalImgName", memberLoggedIn.getOriginalImgName());
-			jsonMember.put("joinDate", memberLoggedIn.getJoinDate().toString());
-			
-			
+			request.setAttribute("visit", visit);
+			System.out.println("referer="+referer);
+			request.getRequestDispatcher(loc).forward(request, response);
+			//response.sendRedirect(referer); 
 			
 		}
 		//로그인 실패
 		else {
+			view = "/WEB-INF/views/common/msg.jsp";
 			//비밀번호 불일치
 			if(result == 0){
 				msg = "비밀번호가 틀렸습니다.";
@@ -104,13 +113,14 @@ public class MemberLoginServlet extends HttpServlet {
 			else {
 				msg = "존재하지 않는 아이디입니다.";
 			}
+			
+			request.setAttribute("visit", visit);
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher(view).forward(request, response);
 		}
 		
 		
-		jsonMember.put("msg", msg);
-		System.out.println("jsonMember=="+jsonMember);
-		response.setContentType("application/json; charset=UTF-8");
-		response.getWriter().print(jsonMember);
 		
 	}
 
