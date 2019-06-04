@@ -42,6 +42,7 @@
 				   style="display:none"
 				   onchange="loadProfile(this);"/>
 				   
+				   
 			<!-- 프로필 사진 변경 안 하는 경우 -->
 			<input type="hidden" name="originalImgNameOld" value="<%=m.getOriginalImgName()%>"/>
 			<input type="hidden" name="renamedImgNameOld" value="<%=m.getRenamedImgName()%>"/>

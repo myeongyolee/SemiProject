@@ -19,7 +19,8 @@ import common.wrapper.EncryptWrapper;
 @WebFilter(
 		servletNames = { 
 				"MemberLoginServlet",
-				"UpdatePasswordEndServlet"
+				"UpdatePasswordEndServlet",
+				"UpdatePasswordAfterFindEndServlet"
 		})
 public class EncryptFilter implements Filter {
 

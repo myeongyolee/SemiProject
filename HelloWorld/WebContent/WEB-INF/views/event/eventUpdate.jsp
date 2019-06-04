@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="event.model.vo.*" %>
+
 <%
 	Event e = (Event)request.getAttribute("e");
 	EventPhoto ep = (EventPhoto)request.getAttribute("ep");

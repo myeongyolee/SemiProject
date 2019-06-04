@@ -9,28 +9,30 @@
 
 </head>
 <body>
+<br />
 <section id="review-container">
-	<h2>리뷰 쓰기</h2>
+	<br />
+	<h2>Review</h2>
+	<br /><hr /><br />
+	
 	<form action="<%=request.getContextPath()%>/review/reviewFormEnd" 
 		  method="post" 
+		  id="reviewForm"
 		  enctype="multipart/form-data">
 		<table id="tbl-board">
-			<tr>
-				<th>제목</th>
-				<td><input type="text" name="reviewTitle"/></td>
-			</tr>
-			<tr>
+			<%-- <tr>
 				<th>작성자</th>
 				<td><input type="text" 
 						   name="reviewWriter" 
 						   value="<%=memberLoggedIn.getMemberId()%>" 
 						   readonly/></td> <!-- value값 로그인된회원찍어주기 -->
-			</tr>
+			</tr> --%>
 			<tr>
-				<th>장소번호</th>
+				<th><span class="review-span">카테고리</span></th>
    				<td>
-   					<label for="select">장소 분류</label>
-   					 <select class="" id="select" name="placeNo">
+   					 <select class="" 
+   					 		 id="reviewCategory-select" 
+   					 		 name="placeNo">
      					 <option value="1" selected="selected">맛집</option>
      					 <option value="2">쇼핑</option>
      					 <option value="3">휴양</option>
@@ -38,28 +40,46 @@
      					 <option value="5">역사</option>
     				</select>
     			</td>
-			</tr>	
+			</tr>
 			<tr>
-				<th>첨부파일</th>
+				<th><span class="review-span">장소</span></th>
 				<td>
-					<a href="#this" id="add" class="btn" >파일 추가하기</a>
-					<div id="fileDiv">
-					</div>
-				</td>
-			</tr>
-			
-			<tr>
-				<td colspan="2">
-					<div id="imgview">
-					<%for(int i=0; i<10; i++){%>
-					<img id="img-viewer_<%=i %>" width=100 />
-					<%} %>
-					</div>
-					
+					<input type="text"
+						   name="reviewPlace" />
 				</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th><span class="review-span">제목</span></th>
+				<td>
+					<input type="text" 
+						   name="reviewTitle"/>
+					<input type="hidden" 
+						   name="reviewWriter"
+						   value="<%=memberLoggedIn.getMemberId()%>"/>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="review-span">사진</span>
+				</th>
+				<td>
+					<div id="reviewImg-container">
+						<div id="reviewImg-div-1"
+							 class="reviewImg-div"
+							 onclick="openFileReviewImg(1);">
+							<img id="reviewImg-viewer-1"
+								 width="100px" height="100px"
+								 src="<%=request.getContextPath()%>/images/plus.png"/>
+						</div><input type="file" 
+							   name="reviewImg-1" 
+				   			   id="reviewImg-1"
+				   			   style="display:none"
+				   			   onchange="loadReviewImg(this, 1)"/></div>
+				</td>
+			</tr>
+	
+			<tr>
+				<th><span class="review-span">내용</span></th>
 				<td>
 					<textarea name="reviewContent" 
 							  id="reviewContent" 
@@ -68,20 +88,22 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<span>얼마나 만족하셨나요?</span>
+				<th>
+					<span class="review-span">평가</span>
+				</th>
+				<td>
 					<span class="star-input">
 						<span class="input">
 					    	<input type="radio" name="star-input" value="1" id="p1">
-					    	<label for="p1">너무 별로였어요<i class="fa fa-frown-o" aria-hidden="true"></i></label>
+					    	<label for="p1">&nbsp;&nbsp;너무 별로였어요<i class="fa fa-frown-o" aria-hidden="true"></i></label>
 					    	<input type="radio" name="star-input" value="2" id="p2">
-					    	<label for="p2">그냥 그랬어요<i class="fa fa-frown-o" aria-hidden="true"></i></label>
+					    	<label for="p2">&nbsp;&nbsp;그냥 그랬어요<i class="fa fa-frown-o" aria-hidden="true"></i></label>
 					    	<input type="radio" name="star-input" value="3" id="p3">
-					    	<label for="p3">가성비 괜찮았어요<i class="fa fa-meh-o" aria-hidden="true"></i></label>
+					    	<label for="p3">&nbsp;&nbsp;가성비 괜찮았어요<i class="fa fa-meh-o" aria-hidden="true"></i></label>
 					    	<input type="radio" name="star-input" value="4" id="p4">
-					    	<label for="p4">좋았어요<i class="fa fa-smile-o" aria-hidden="true"></i></label>
+					    	<label for="p4">&nbsp;&nbsp;좋았어요<i class="fa fa-smile-o" aria-hidden="true"></i></label>
 					    	<input type="radio" name="star-input" value="5" id="p5">
-					    	<label for="p5">정말 좋았어요<i class="fa fa-smile-o" aria-hidden="true"></i></label>
+					    	<label for="p5">&nbsp;&nbsp;정말 좋았어요<i class="fa fa-smile-o" aria-hidden="true"></i></label>
 					  	</span>
 					  	<output for="star-input"><b></b></output>						
 					</span>
@@ -89,8 +111,12 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="취소"/>
-					<input type="submit" value="등록" onclick="return validate();"/>
+					<input type="button" 
+						   value="취소"
+						   onclick="location.href='<%=request.getContextPath()%>'"/>
+					<input type="submit" 
+						   value="등록" 
+						   onclick="return validate();"/>
 				</th>
 			</tr>
 		</table>
@@ -98,68 +124,74 @@
 </section>
 
 <script>
-
-
-var g_count = 0;
-
-$(document).ready(function(){
-    
-$("#add").on("click",function(e){
-        e.preventDefault();
-        fn_fileAdd();
-    })
+$(function(){
+	$("#deleteProfile").click(function(){
+		$("#profile-viewer").attr("src", "<%=request.getContextPath()%>/upload/member/profile/nonProfile.png");
+		$("#profile").val("");
+	});
 });
 
-function fn_fileAdd(){
+
+function openFileReviewImg(num){
+	var n = num;
+	var f = $("#reviewImg-"+n);
 	
-	var p_count = $("p").length;
-	console.log("p태그숫자!"+p_count);
+	if($("#reviewImg-viewer-"+n).prop("src") =="http://localhost:9090/helloworld/images/plus.png"){
+		$("#reviewImg-"+n).click();
+	}
+	else{
+		$("#reviewImg-viewer-"+n).attr("src", "<%=request.getContextPath()%>/images/plus.png");
+		$("#reviewImg-"+n).val("");
+		$("#reviewImg-"+n).click();
+	/* 	$("div#reviewImg-div-"+n).remove();
+		$("input#reviewImg-"+n).remove(); */
+		
+	}
 	
-	$.ajax({
-		url:"<%=request.getContextPath()%>/test/testCheck",
-   		data:{g_count:g_count,p_count:p_count},
-   		dataType:"json",
-   		success:function(data){
-   			console.log("json에서 넘어온 g_count"+data[0].number);
-   			console.log("json에서 넘어온 p_count"+data[0].ptag);
-   			
-   			if(data[0].ptag == 10){
-   				alert("더이상 추가할 수 없습니다.");
-   				return;
-   			}
-   			
-   			if(data[0].ptag < 10){
-               	var str = "<p class='"+data[0].number+"'><input type='file' name='file_"+(data[0].number)+"' onchange='loadImg(this);'/><a href='#this' name='delete' class='"+data[0].number+"'>삭제하기</a></p> ";
-               	$("#fileDiv").append(str);
-               	g_count++;
-           	}
-   			
-   			$("a[name='delete']").on("click",function(e){
-               	console.log("삭제버튼누름");
-	var a = $(this).attr('class');
-	console.log("삭제버튼클릭한 태그의 클래스값"+a);
-	$("a."+a+"").parent("p."+data[0].number+"").remove();
-	$("#img-viewer_"+p_count).attr("src", "");
-               })
-   		}
-   	});
 }
-   
-function loadImg(f){
- 	console.log(f.files); //파일리스트
-	console.log(f.files[0]); // 실제업로드한파일(리스트내에 존재)
-	var p_count = $("p").length;
-	console.log("이미지단에서의 p태그수="+p_count);
+function loadReviewImg(f, num){
+	var n = num;
+	console.log(f.files);
+	console.log(f.files[0]);
 	
-	if(f.files && f.files[0]){ //JavaScript에서는 값이 있으면 true, 없으면 false로 볼 수 있음
+	if(f.files && f.files[0]){
 		var reader = new FileReader();
-		//파일읽기메소드 호출. 읽기완료하면 onload에 등록된 함수를 호출
 		reader.readAsDataURL(f.files[0]);
 		reader.onload = function(){
-			//result속성에는 파일컨텐츠가 담겨있음
-			$("#img-viewer_"+(p_count-1)).attr("src", reader.result);
+			$("#reviewImg-viewer-"+n).attr("src", reader.result);
 		}
-	} 
+		
+		if($("input#reviewImg-"+n)[0] == $("#reviewImg-container>input:last")[0]){
+			addReviewDiv(n);		
+		}
+	}
+	
+	
+}
+
+function addReviewDiv(num){
+	var n = num;
+	
+	if(n >= 10){
+		alert("사진은 열 장까지 첨부 가능합니다.");
+		return;
+	}
+	
+	else{
+		var html = "<div id='reviewImg-div-"+(n+1)+"'";
+		html += "class='reviewImg-div'";
+		html += "onclick='openFileReviewImg("+(n+1)+");'>";
+		html += "<img id='reviewImg-viewer-"+(n+1)+"'";
+		html += "width='100px' height='100px'";
+		html += "src='<%=request.getContextPath()%>/images/plus.png'/></div>";
+		html += "<input type='file' name='reviewImg-"+(n+1)+"'";
+		html += "id='reviewImg-"+(n+1)+"'";
+		html += "style='display:none'";
+		html += "onchange='loadReviewImg(this, "+(n+1)+");''/>";
+		
+		$("div#reviewImg-container").append(html);
+	}
+	
 }
 
 
@@ -200,4 +232,5 @@ var $star = $(".star-input"),
 
 starRating();
 </script>
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

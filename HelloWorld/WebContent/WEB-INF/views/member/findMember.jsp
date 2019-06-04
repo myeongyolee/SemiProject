@@ -27,6 +27,14 @@ function resetAll(){
 	$("input[type=text]").val("");
 }
 
+$(function(){
+	$("#updatePasswordAfterFind").click(function(){
+		window.opener.top.location.href="<%=request.getContextPath()%>/member/updatePasswordAfterFind?memberId=<%=memberId%>";
+        window.close();
+	});
+});
+
+
 </script>
 
 <div id="find-container">

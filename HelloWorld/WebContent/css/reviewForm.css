@@ -1,15 +1,82 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Poiret+One|Nanum+Gothic|Song+Myung&display=swap');
+
 section#review-container{
-	width: 600px;
+	width: 800px;
 	margin: 0 auto;
 	text-align: center;
 }
 section#review-container h2{
 	margin: 10px 0;
+	text-align: left;
+	font-size: 2em;
+	font-weight: 1500;
 }
-section#review-container table#tbl-board th,
+section#review-container table#tbl-board tr th span.review-span{
+	border: 1px ;
+	border-radius: 50px;
+	width: 100px;
+	height: 20px;
+	display: inline-block;
+	padding: 5px;
+	background: rgb(145, 187, 255);
+	color: white;
+	margin: 10px 20px 10px 0px;
+}
 section#review-container table#tbl-board td{
-	border:1px solid;
+	text-align: left;
+}
+table#tbl-board tr td select#reviewCategory-select{
+	width: 200px;
+	height: 30px;
+	font-family: "Nanum Gothic";
+	font-size: 15px;
+}
+table#tbl-board tr td input[type=text]{
+	width: 600px;
+	height: 30px;
+	font-family: "Nanum Gothic";
+	font-size: 15px;
+}
+table#tbl-board tr td textarea{
+	width: 600px;
+	height: 400px;
+	font-family: "Nanum Gothic";
+	font-size: 15px;
+}
+table#tbl-board tr td select#reviewCategory-select:focus,
+table#tbl-board tr td input[type=text]:focus,
+table#tbl-board tr td textarea:focus{
+	outline: none;
+}
+table#tbl-board tr th input[type=button],
+table#tbl-board tr th input[type=submit]{
+	border: 1px solid;
+	border-radius: 50px;
+	background: white;
+	width: 130px;
+	height: 40px;
+	margin: 20px;
+	margin-top: 50px;
+	background: rgb(34, 110, 232);
+	color:white;
+	font-family: "Nanum Gothic";
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+}
+table#tbl-board tr td div#reviewImg-container div.reviewImg-div{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	padding: 0;
+	margin: 0px 10px 10px 0px;
+	border: 2px solid white;
+	
+}
+table#tbl-board tr td div#reviewImg-container div#reviewImg-div-1.reviewImg-div{
+
+	border: 2px solid rgb(20, 108, 255);	
 }
 /*별점  */
 .star-input>.input,
@@ -25,9 +92,9 @@ section#review-container table#tbl-board td{
 	white-space:nowrap;
 	width:225px;
 	height:40px;
-	padding:25px;
+	margin-top: 6px;
 	line-height:30px;
-	}
+}
 .star-input>.input{
 	display:inline-block;
 	width:150px;
@@ -36,16 +103,16 @@ section#review-container table#tbl-board td{
 	white-space:nowrap;
 	overflow:hidden;
 	position: relative;
-	}
+}
 .star-input>.input>input{
 	position:absolute;
 	width:1px;
 	height:1px;
 	opacity:0;
-	}
+}
 star-input>.input.focus{
 	outline:1px dotted #ddd;
-	}
+}
 .star-input>.input>label{
 	width:30px;
 	height:0;
@@ -56,7 +123,7 @@ star-input>.input.focus{
 	position: absolute;
 	top: 0;
 	left: 0;
-	}
+}
 .star-input>.input>label:hover,
 .star-input>.input>input:focus+label,
 .star-input>.input>input:checked+label{

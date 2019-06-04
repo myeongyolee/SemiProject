@@ -59,3 +59,15 @@ select{
 span#findIdSpan, span#findPasswordSpan{
 	font-weight: bold;
 }
+
+div#findPassword span#updatePasswordAfterFind{
+	cursor: pointer;
+	
+	border: 2px solid rgb(209, 226, 255);
+	background: rgb(209, 226, 255);
+	border-radius: 50px;
+	
+	padding: 10px;
+	width: 120px;
+	height: 40px;
+}

@@ -180,32 +180,38 @@ public class ReviewDAO {
 		return result;
 	}
 
-	public int insertReviewPhoto(Connection conn, ReviewPhoto rp) {
+	public int insertReviewPhoto(Connection conn, ReviewPhoto rp, int mainPhoto) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertReviewPhoto");
-//		insert into review_photo values(seq_photo_no.nextval, ?, ?, ?, ?)
-//		rp.getPhotoLevel() 추가
 		
 		try {
 			String[] Oname = rp.getOriginalPhotoName().split("&");
 			String[] Rname = rp.getRenamedPhotoName().split("&");
 
-			for(int i=0; i<Oname.length; i++) {
-				if(!Oname[i].equals("없음")) {
-					pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			
+			for(int i=0; i<Oname.length; i++) {
+				
+				if(i == mainPhoto) {
 					pstmt.setInt(1, rp.getReviewNo());
-					pstmt.setString(2, Oname[i]);
-					pstmt.setString(3, Rname[i]);
-					
-	/*				pstmt.setInt(1, rp.getReviewNo());
-					pstmt.setInt(2, rp.getPhotoLevel());
+					pstmt.setInt(2, 1);
 					pstmt.setString(3, Oname[i]);
-					pstmt.setString(4, Rname[i]);*/
+					pstmt.setString(4, Rname[i]);
+				
+					result += pstmt.executeUpdate();
+					continue;
+				}
+				
+				if(!Oname[i].equals("없음")) {
+					pstmt.setInt(1, rp.getReviewNo());
+					pstmt.setInt(2, 0);
+					pstmt.setString(3, Oname[i]);
+					pstmt.setString(4, Rname[i]);
 				
 					result += pstmt.executeUpdate();
 				}
+				
 				else {
 					continue;
 				}

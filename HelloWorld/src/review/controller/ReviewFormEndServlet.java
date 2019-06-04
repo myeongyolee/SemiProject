@@ -57,7 +57,12 @@ public class ReviewFormEndServlet extends HttpServlet {
 		String reviewWriter = multiReq.getParameter("reviewWriter");
 		String reviewContent = multiReq.getParameter("reviewContent");
 		int placeNo = Integer.parseInt(multiReq.getParameter("placeNo"));
-
+		
+		System.out.println(reviewTitle);
+		System.out.println(reviewWriter);
+		System.out.println(reviewContent);
+		System.out.println(placeNo);
+		
 		Review rv = new Review();
 		rv.setPlaceTitle(reviewTitle);
 		rv.setMemberId(reviewWriter);
@@ -67,6 +72,9 @@ public class ReviewFormEndServlet extends HttpServlet {
 		int reviewNo = new ReviewService().insertReview(rv);
 
 		//이미지파일
+		int mainPhoto = Integer.parseInt(multiReq.getParameter("mainPhoto"));
+		System.out.println("메인사진 몇번?"+mainPhoto);
+		
 		String originalfileName = "";
 		String renamedfileName = "";
 		
@@ -93,7 +101,7 @@ public class ReviewFormEndServlet extends HttpServlet {
 		rp.setOriginalPhotoName(originalfileName);
 		rp.setRenamedPhotoName(renamedfileName);
 		
-		int result = new ReviewService().insertReviewPhoto(rp);
+		int result = new ReviewService().insertReviewPhoto(rp, mainPhoto);
 		
 		// ---------------------------------------------------------//
 		

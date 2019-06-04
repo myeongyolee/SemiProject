@@ -64,9 +64,12 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 		
 		//===============================================================
 		
+		int mainPhoto = 0;
+		
 		String newFileName = "";
 		String renamedNewFileName = "";
 		
+		//수정 시, 새로 추가한 이미지파일 및 기존에 업로드한 이미지 파일들
 		for(int i=0; i<9; i++) {
 			if(multiReq.getOriginalFileName("file_"+i)!=null) {
 			newFileName += multiReq.getOriginalFileName("file_"+i);
@@ -105,8 +108,17 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 		System.out.println("originalFile@updateendServlet="+originalFile);
 		System.out.println("renamedoriginalFile@updateendServlet="+renamedoriginalFile);
 		
-		String finalOriginalFileName = newFileName +"&"+ originalFile;
-		String finalrenamedFileName = renamedNewFileName +"&"+ renamedoriginalFile;
+		//새로 등록한 대표사진
+		String newOriginalMain = multiReq.getOriginalFileName("upFile");
+		String newRenamedMain = multiReq.getFilesystemName("upFile");
+		
+		System.out.println("=========================================");
+		System.out.println("새로등록한 메인사진 :" + newOriginalMain);
+		System.out.println("새로등록한 메인사진renamed :" + newRenamedMain);
+		System.out.println("=========================================");
+		
+		String finalOriginalFileName = newOriginalMain +"&"+ newFileName +"&"+ originalFile;
+		String finalrenamedFileName = newRenamedMain +"&"+ renamedNewFileName +"&"+ renamedoriginalFile;
 		
 		System.out.println("쿼리보내기마지막1="+finalOriginalFileName);
 		System.out.println("쿼리보내기마지막2="+finalrenamedFileName);
@@ -117,7 +129,7 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 		rp.setRenamedPhotoName(finalrenamedFileName);
 		
 		int total = new ReviewService().deleteReviewPhoto(reviewNo); // 전체싹지우고 
-		int total2 = new ReviewService().insertReviewPhoto(rp); // 새로 저장
+		int total2 = new ReviewService().insertReviewPhoto(rp, (mainPhoto)); // 새로 저장
 		
 		//=========================================================================
 		

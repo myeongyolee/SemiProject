@@ -2,28 +2,22 @@
    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-<%
-    String memberId = (String)request.getAttribute("memberId");
-%>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/updatePassword.css" />
-
+<%
+	String memberId = (String)request.getAttribute("memberId");
+%>
 <title>비밀번호 변경</title>
 
 <div id="updatePassword-container">
 <br /><br /><br />
     <h1>비밀번호 변경</h1>
-    <form action="<%=request.getContextPath()%>/member/updatePasswordEnd"
+    <form action="<%=request.getContextPath()%>/member/updatePasswordAfterFindEnd"
           id="updatePasswordFrm"
           name="updatePasswordFrm"
           method="post"
           onsubmit="return submitInvalid();">
-        <input type="hidden" name="memberId_" value="<%=memberId%>"/>
         
-        <label for="passwordOld">현재 비밀번호</label>
-        <input type="password"
-               id="passwordOld" name="passwordOld"
-               required/>
-        <br />
+        <input type="hidden" name="memberId_" value="<%=memberId%>"/>
         <label for="passwordNew">새 비밀번호</label>
         <input type="password"
                id="passwordNew" name="passwordNew"
@@ -36,8 +30,7 @@
         <span id="passwordCheck-span"></span>
         <br />
 		<img src="<%=request.getContextPath()%>/images/cancel.png"
-             onclick="location.href='<%=request.getContextPath()%>/member/memberMyPage?memberId=<%=memberId%>'"
-             />
+             onclick="location.href='<%=request.getContextPath()%>'"/>
         <img src="<%=request.getContextPath()%>/images/ok.png"
              onclick="submitFrm();"
              />

@@ -141,6 +141,7 @@ div#input button{
 /* 메뉴바 */
 div#menubar{
     font-family: Nanum Gothic;
+     font-weight: bold;
     width: 290px;
     height: 100%;
     color: #494949;
@@ -160,6 +161,61 @@ div#menubar #menubar-close{
     font-size: 18px;
     cursor: pointer;
 }
+
+
+div#menubar div#menu ul#menu-list1{
+	list-style-image: url("/helloworld/images/plan.png");
+}
+div#menubar div#menu ul#menu-list2{
+	list-style-image: url("/helloworld/images/wish.png");
+}
+div#menubar div#menu ul#menu-list3{
+	list-style-image: url("/helloworld/images/review.png");
+}
+div#menubar div#menu ul#menu-list4{
+	list-style-image: url("/helloworld/images/write.png");
+}
+div#menubar div#menu ul#menu-list5{
+	list-style-image: url("/helloworld/images/question.png");
+}
+div#menubar div#menu ul#menu-list6{
+	list-style-image: url("/helloworld/images/notice.png");
+}
+
+div#menubar div#menu ul{
+	padding: 0;
+	margin-top: 10px;
+	
+}
+div#menubar div#menu ul li{
+	margin-left: 70px;
+    height: 40px;
+    line-height: 40px;
+}
+div#menubar div#menu ul li a{
+	position: absolute;
+	margin-left: 5px;
+}
+
+
+div#menu{
+	width: 290px;
+}
+
+div#menu{
+    font-size: 100%;
+    position: absolute;
+    width: 200px;
+    top: 250px;
+}
+
+div#menu li a:hover{
+    color: rgb(21, 88, 196);
+}
+
+
+
+
 /* 로그인폼(로그인전) */
 form#loginfrm{
     position: absolute;
@@ -194,7 +250,14 @@ form#loginfrm #login_btn{
     width: 56px;
     height: 75px;
     cursor:pointer;
+    font-family: Nanum Gothic;
+	font-weight: bold;
     
+}
+form#loginfrm input[type=button],
+form#loginfrm label{
+	font-family: Nanum Gothic;
+	font-weight: bold;
 }
 form#loginfrm .membermenu{
     color: gray;
@@ -210,26 +273,18 @@ a{
     text-decoration: none;
     color: black;
 }
-form a:hover{
+form#loginfrm a:hover{
     color: #2dac89;
     font-weight: bold;
 }
-div#menu{
-    font-size: 100%;
-    position: absolute;
-    width: 200px;
-    top: 250px;
-}
-div#menu li{
-    padding: 5px;
-}
-div#menu li:hover{
-    font-weight: bold;  
-}
+
 
 label#saveId{
-	position: relative;
     font-size: small;
+}
+form#loginfrm span.text{
+	font-family: Nanum Gothic;
+	font-weight: bold; 
 }
 
 /* 로그인 후  */
@@ -247,6 +302,17 @@ img#profile-viewer_{
 	border-radius: 100px;
 	width: 120px;
 	height: 120px;
+}
+
+table#logged-in tr td input[type=button]{
+	margin-top:10px;
+	font-family: Nanum Gothic;
+	font-weight: bold;
+}
+table#logged-in tr td {
+	font-family: Nanum Gothic;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 

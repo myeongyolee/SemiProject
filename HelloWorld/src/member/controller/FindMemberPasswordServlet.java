@@ -33,6 +33,7 @@ public class FindMemberPasswordServlet extends HttpServlet {
 				//질문 일치
 				if(answer.equals(m.getAnswer())) {
 					//정답까지 일치
+					findPasswordMsg="<span id='updatePasswordAfterFind'>새로운 비밀번호 설정하기</span>";
 					
 				}
 				else {

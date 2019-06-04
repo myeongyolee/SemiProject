@@ -53,9 +53,9 @@ public class ReviewService {
 		return result;
 	}
 
-	public int insertReviewPhoto(ReviewPhoto rp) {
+	public int insertReviewPhoto(ReviewPhoto rp, int mainPhoto) {
 		Connection conn = getConnection();
-		int result = new ReviewDAO().insertReviewPhoto(conn, rp);
+		int result = new ReviewDAO().insertReviewPhoto(conn, rp, mainPhoto);
 		if(result>0) {
 			commit(conn);
 		}

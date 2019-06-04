@@ -81,7 +81,7 @@ function findMember(){
 	//아이디, 비밀번호 찾기 팝업 생성
 	var url = "<%=request.getContextPath()%>/member/findMember";
 	var title = "findMember";
-	var spec = "width=500px, height=750px, left=500px, top=100px";
+	var spec = "width=500px, height=800px, left=500px, top=100px";
 		
 	var popup = open(url, title, spec); 
 }
@@ -140,6 +140,7 @@ function findMember(){
 	<!-- 메뉴바 -->
 	<div id="menubar">
 		<span id="menubar-close">X</span>
+	
 		<!-- 로그인 메뉴/폼 -->
 		<div class="login-container">
 		<%-- 1.로그인하지 않은 경우 --%>
@@ -213,7 +214,7 @@ function findMember(){
 					 		 width="100px" height="100px"/>
 						</div>
 					</td>
-					<td><%=memberLoggedIn.getMemberName()%>님!<br> 안녕하세용</td>
+					<td><%=memberLoggedIn.getMemberName()%>님!<br>반갑습니다</td>
 				</tr>
 				<tr>
 					<td>
@@ -258,14 +259,24 @@ function findMember(){
 		
 		<!-- 메뉴목록 -->
 		<div id="menu">
-			<ul>
+			<ul id="menu-list1">
 			<%if(memberLoggedIn != null) {%>
-				<li><a href="<%=request.getContextPath()%>">일정보기</a></li>
-				<li><a href="<%=request.getContextPath()%>">내글보기</a></li>
+				<li><span><a href="<%=request.getContextPath()%>">일정보기</a></span></li>
+			</ul>
+			<ul id="menu-list2">
 				<li><a href="<%=request.getContextPath()%>">찜리스트</a></li>
+			</ul>
+			<ul id="menu-list3">
+				<li><a href="<%=request.getContextPath()%>">내글보기</a></li>			
+			</ul>
+			<ul id="menu-list4">
 				<li><a href="<%=request.getContextPath()%>/review/reviewForm">리뷰쓰기</a></li>
+			</ul>
+			<ul id="menu-list5">
 				<li><a href="<%=request.getContextPath()%>">문의사항</a></li>
+			</ul>
 			<%} %>
+			<ul id="menu-list6">
 				<li><a href="<%=request.getContextPath()%>/notice/noticeList">공지사항</a></li>
 			</ul>
 		</div>
